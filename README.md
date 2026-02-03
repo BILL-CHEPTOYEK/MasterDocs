@@ -1,2 +1,2 @@
 # MASTER DOCS
-The document king, doyou need to merge pdfs, your in the right place
+The document king, do you need to merge pdfs, your in the right place
