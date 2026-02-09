@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -9,7 +10,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <div className="flex-shrink-0 flex items-center">
+            <Link to="/" className="flex-shrink-0 flex items-center">
               <svg
                 className="h-8 w-8 text-red-700"
                 fill="none"
@@ -26,29 +27,41 @@ const Navbar = () => {
               <span className="ml-2 text-xl font-semibold text-gray-900">
                 MasterDocs
               </span>
-            </div>
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex md:items-center md:space-x-8">
-            <a
-              href="#"
-              className="text-gray-900 hover:text-red-700 px-3 py-2 text-sm font-medium transition-colors"
-            >
-              PDF Merge
-            </a>
-            <a
-              href="#"
+            <Link
+              to="/merge"
               className="text-gray-600 hover:text-red-700 px-3 py-2 text-sm font-medium transition-colors"
             >
-              About
-            </a>
-            <a
-              href="#"
+              Merge
+            </Link>
+            <Link
+              to="/split"
               className="text-gray-600 hover:text-red-700 px-3 py-2 text-sm font-medium transition-colors"
             >
-              Help
-            </a>
+              Split
+            </Link>
+            <Link
+              to="/compress"
+              className="text-gray-600 hover:text-red-700 px-3 py-2 text-sm font-medium transition-colors"
+            >
+              Compress
+            </Link>
+            <Link
+              to="/pdf-to-image"
+              className="text-gray-600 hover:text-red-700 px-3 py-2 text-sm font-medium transition-colors"
+            >
+              PDF to Image
+            </Link>
+            <Link
+              to="/image-to-pdf"
+              className="text-gray-600 hover:text-red-700 px-3 py-2 text-sm font-medium transition-colors"
+            >
+              Image to PDF
+            </Link>
           </div>
 
           {/* Mobile menu button */}
@@ -96,24 +109,41 @@ const Navbar = () => {
       {isMobileMenuOpen && (
         <div className="md:hidden border-t border-gray-200">
           <div className="px-2 pt-2 pb-3 space-y-1">
-            <a
-              href="#"
-              className="block text-gray-900 hover:text-red-700 hover:bg-gray-50 px-3 py-2 text-base font-medium rounded-sm transition-colors"
-            >
-              PDF Merge
-            </a>
-            <a
-              href="#"
+            <Link
+              to="/merge"
               className="block text-gray-600 hover:text-red-700 hover:bg-gray-50 px-3 py-2 text-base font-medium rounded-sm transition-colors"
+              onClick={() => setIsMobileMenuOpen(false)}
             >
-              About
-            </a>
-            <a
-              href="#"
+              Merge
+            </Link>
+            <Link
+              to="/split"
               className="block text-gray-600 hover:text-red-700 hover:bg-gray-50 px-3 py-2 text-base font-medium rounded-sm transition-colors"
+              onClick={() => setIsMobileMenuOpen(false)}
             >
-              Help
-            </a>
+              Split
+            </Link>
+            <Link
+              to="/compress"
+              className="block text-gray-600 hover:text-red-700 hover:bg-gray-50 px-3 py-2 text-base font-medium rounded-sm transition-colors"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Compress
+            </Link>
+            <Link
+              to="/pdf-to-image"
+              className="block text-gray-600 hover:text-red-700 hover:bg-gray-50 px-3 py-2 text-base font-medium rounded-sm transition-colors"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              PDF to Image
+            </Link>
+            <Link
+              to="/image-to-pdf"
+              className="block text-gray-600 hover:text-red-700 hover:bg-gray-50 px-3 py-2 text-base font-medium rounded-sm transition-colors"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Image to PDF
+            </Link>
           </div>
         </div>
       )}
