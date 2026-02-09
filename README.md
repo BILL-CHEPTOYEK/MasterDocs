@@ -215,7 +215,7 @@ The build output will be in the `dist/` directory.
 cd masterdocs-backend
 mvn clean package
 ```
-The JAR file will be in the `target/` directory.
+The JAR file will be in the `target/` directory..
 
 ### Running Tests
 
