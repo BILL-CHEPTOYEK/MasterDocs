@@ -23,4 +23,172 @@ h1 {
   line-height: 1.1;
 }
 
+/* Tool Cards Styling */
+
+
+.tool-card {
+  position: relative;
+  background: white;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.08);
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  border-radius: 9999px;
+  width: 250px;
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .tool-card {
+    width: 240px;
+    height: 240px;
+  }
+}
+
+.tool-card:hover {
+  transform: translateY(-16px) scale(1.05);
+  box-shadow: 0 32px 64px rgba(220, 38, 38, 0.18), 0 15px 25px rgba(0, 0, 0, 0.12);
+}
+
+.tool-card-inner {
+  position: relative;
+  height: 100%;
+  transition: transform 0.3s ease;
+  transform-style: preserve-3d;
+}
+
+.tool-card:hover .tool-card-inner {
+  transform: rotateX(2deg) rotateY(-2deg);
+}
+
+.tool-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s;
+  z-index: 1;
+}
+
+.tool-card:hover::before {
+  left: 100%;
+}
+
+.tool-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tool-card:hover::after {
+  opacity: 1;
+}
+
+/* Bounce Animation */
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-200px) scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(30px) scale(1.05);
+  }
+  65% {
+    transform: translateY(-15px) scale(0.98);
+  }
+  80% {
+    transform: translateY(8px) scale(1.02);
+  }
+  95% {
+    transform: translateY(-4px) scale(0.99);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.bounce-in {
+  animation: bounceIn 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+  animation-fill-mode: both;
+}
+
+/* Tool Button */
+
+.tool-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 18px;
+  background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+  color: white;
+  font-weight: 600;
+  font-size: 0.875rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  border-bottom-left-radius: 18px;
+  border-bottom-right-radius: 18px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.tool-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s;
+}
+
+.tool-button:hover::before {
+  left: 100%;
+}
+
+.tool-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(220, 38, 38, 0.3);
+}
+
+.tool-button:active {
+  transform: translateY(0);
+}
+
+
+
+/* 3D Tilt Effect on Mouse Move */
+@media (hover: hover) {
+  .tool-card {
+    transition: transform 0.1s ease-out, box-shadow 0.4s ease;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .tool-card {
+    transform: none !important;
+  }
+  
+  .tool-card:hover {
+    transform: translateY(-4px) !important;
+  }
+}
+
 
