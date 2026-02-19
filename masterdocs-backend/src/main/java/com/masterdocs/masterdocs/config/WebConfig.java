@@ -15,7 +15,8 @@ public class WebConfig implements WebMvcConfigurer {
                     "http://localhost:5174",
                     "http://localhost:5175",
                     "http://localhost:5176",
-                    "https://masterdocs.onrender.com"
+                    "https://masterdocs.onrender.com",
+                    "https://masterdocs-1.onrender.com"
                 )
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
