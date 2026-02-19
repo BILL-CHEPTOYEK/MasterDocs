@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:8080/api';
+const API_BASE_URL = 'https://masterdocs.onrender.com/api';
 
 class ApiService {
   // PDF Merge
