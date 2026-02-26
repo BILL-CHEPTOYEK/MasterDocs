@@ -1,4 +1,4 @@
-# MasterDocs - PDF Management Application.m
+# MasterDocs - PDF Management Application.
 ### Open Source Pdf Management Software
 A comprehensive PDF management web application that provides tools for merging, splitting, compressing, and converting PDFs and images. Built with Spring Boot backend and React frontend.
 
