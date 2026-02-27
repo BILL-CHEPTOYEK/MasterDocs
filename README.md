@@ -129,57 +129,165 @@ masterdocs/
 
    The frontend will start on `http://localhost:5173` (or next available port)
 
+## Tool Usage Guide
+
+### 🔗 PDF Merge
+Combine multiple PDF files into a single document.
+
+1. Navigate to the **PDF Merge** page from the navbar.
+2. Click **Select Files** or drag and drop two or more PDF files.
+3. Arrange the files in the desired order.
+4. Click **Merge PDFs**.
+5. The merged file `merged.pdf` will download automatically.
+
+> **Note:** You must upload at least 2 PDF files for the merge to work.
+
+---
+
+### ✂️ PDF Split
+Split a single PDF into multiple parts using three modes:
+
+#### Split by Page Ranges
+1. Navigate to the **PDF Split** page.
+2. Upload a PDF file.
+3. Choose **Split by Ranges** mode.
+4. Enter page ranges in the format `1-3,5,7-9` (comma-separated; use a hyphen for a range, or a single number for one page).
+5. Click **Split PDF**.
+6. A ZIP file `split_pdfs.zip` containing the resulting PDFs will download.
+
+#### Split Every Page
+1. Upload a PDF file.
+2. Choose **Split Every Page** mode.
+3. Click **Split PDF**.
+4. A ZIP file `split_pages.zip` with one PDF per page will download.
+
+#### Extract Specific Pages
+1. Upload a PDF file.
+2. Choose **Extract Pages** mode.
+3. Enter individual page numbers in the format `1,3,5`.
+4. Click **Extract**.
+5. A single PDF `extracted_pages.pdf` containing only the chosen pages will download.
+
+> **Tip:** Use the page count indicator (shown after upload) to know how many pages the document has.
+
+---
+
+### 🗜️ PDF Compress
+Reduce the file size of a PDF with adjustable quality.
+
+1. Navigate to the **PDF Compress** page.
+2. Upload a PDF file.
+3. Adjust the **Quality** slider:
+   - `0.1` → Smallest file size, lowest quality
+   - `0.7` → Balanced (default)
+   - `1.0` → Highest quality, larger file size
+4. Click **Compress PDF**.
+5. The file `compressed.pdf` will download automatically.
+
+> **Note:** Compression is most effective on PDFs that contain many images.
+
+---
+
+### 🖼️ PDF to Image
+Convert each page of a PDF into an image file.
+
+1. Navigate to the **PDF to Image** page.
+2. Upload a PDF file.
+3. Select the output **Format**:
+   - `PNG` – Lossless, larger file size (default)
+   - `JPG` – Smaller file size, slight quality loss
+4. Select the **DPI** (resolution):
+   - `72` – Screen quality
+   - `150` – Standard quality (default)
+   - `300` – High quality, suitable for printing
+5. Click **Convert to Images**.
+6. A ZIP file `pdf_images.zip` with one image per page will download.
+
+---
+
+### 📄 Image to PDF
+Combine one or more images into a single PDF document.
+
+1. Navigate to the **Image to PDF** page.
+2. Click **Select Files** or drag and drop one or more image files (JPG, PNG).
+3. Review the selected images.
+4. Click **Convert to PDF**.
+5. The file `images_to_pdf.pdf` will download automatically.
+
+> **Note:** Images are placed in the order they are selected. Each image becomes one page in the resulting PDF.
+
+---
+
 ## API Endpoints
 
 ### PDF Merge
-- **POST** `/api/pdf/merge`
+- **POST** `/api/pdfmerge/merge`
 - **Body**: `multipart/form-data` with `files` (multiple PDFs)
-- **Response**: Merged PDF file
+- **Response**: Merged PDF file (`merged.pdf`)
 
 ### PDF Split
 
 #### Split by Ranges
-- **POST** `/api/pdf/split/ranges`
+- **POST** `/api/pdfsplit/split-by-ranges`
 - **Body**: `multipart/form-data`
   - `file`: PDF file
-  - `ranges`: Page ranges (e.g., "1-3", "5", "7-9")
-- **Response**: ZIP file with split PDFs
+  - `ranges`: Page ranges string (e.g., `"1-3,5,7-9"`)
+- **Response**: ZIP file (`split_pdfs.zip`) with split PDFs
 
 #### Split Every Page
-- **POST** `/api/pdf/split/every-page`
+- **POST** `/api/pdfsplit/split-every-page`
 - **Body**: `multipart/form-data` with `file`
-- **Response**: ZIP file with individual pages
+- **Response**: ZIP file (`split_pages.zip`) with individual pages
 
 #### Extract Pages
-- **POST** `/api/pdf/split/extract`
+- **POST** `/api/pdfsplit/extract-pages`
 - **Body**: `multipart/form-data`
   - `file`: PDF file
-  - `pages`: Page numbers to extract (e.g., "1,3,5")
-- **Response**: Single PDF with extracted pages
+  - `pages`: Comma-separated page numbers (e.g., `"1,3,5"`)
+- **Response**: Single PDF (`extracted_pages.pdf`) with extracted pages
 
 #### Get Page Count
-- **POST** `/api/pdf/split/page-count`
+- **POST** `/api/pdfsplit/page-count`
 - **Body**: `multipart/form-data` with `file`
-- **Response**: JSON with page count
+- **Response**: Integer page count
 
 ### PDF Compress
-- **POST** `/api/pdf/compress?quality={0.1-1.0}`
+- **POST** `/api/pdfcompress/compress`
 - **Body**: `multipart/form-data` with `file`
-- **Query Param**: `quality` (0.1 = lowest quality, 1.0 = highest quality)
-- **Response**: Compressed PDF file
+- **Query Param**: `quality` (float `0.1`–`1.0`, default `0.7`)
+- **Response**: Compressed PDF file (`compressed.pdf`)
 
 ### PDF to Image
-- **POST** `/api/pdf/to-image?format={format}&dpi={dpi}`
+- **POST** `/api/pdftoimage/convert`
 - **Body**: `multipart/form-data` with `file`
 - **Query Params**:
-  - `format`: "png" or "jpg"
-  - `dpi`: 72, 150, or 300
-- **Response**: ZIP file with image files
+  - `format`: `"png"` or `"jpg"` (default `"png"`)
+  - `dpi`: `72`, `150`, or `300` (default `150`)
+- **Response**: ZIP file (`pdf_images.zip`) with image files
 
 ### Image to PDF
-- **POST** `/api/image/to-pdf`
+- **POST** `/api/imagetopdf/convert`
 - **Body**: `multipart/form-data` with `files` (multiple images)
-- **Response**: Single PDF file
+- **Response**: Single PDF file (`images_to_pdf.pdf`)
+
+## Docker
+
+A `Dockerfile` is provided in the `masterdocs-backend/` directory for containerizing the backend.
+
+### Build the Docker image
+```bash
+cd masterdocs-backend
+docker build -t masterdocs-backend .
+```
+
+### Run the container
+```bash
+docker run -p 8080:8080 masterdocs-backend
+```
+
+The backend API will be accessible at `http://localhost:8080`.
+
+---
 
 ## CORS Configuration
 
@@ -249,10 +357,31 @@ Make sure the backend `WebConfig.java` includes your frontend's port in the allo
 - Clear npm cache: `npm cache clean --force`
 - Delete `node_modules` and reinstall: `rm -rf node_modules && npm install`
 
+## Open Issues / Roadmap
+
+Here are good first issues and planned improvements for contributors:
+
+- [ ] Add unit tests for all service classes (`PdfMergeService`, `PdfCompressService`, etc.)
+- [ ] Improve error handling in controllers with user-friendly error messages
+- [ ] Add Swagger / OpenAPI documentation for all backend endpoints
+- [ ] Implement file type and size validation on both frontend and backend
+- [ ] Add loading spinners / progress indicators for all async operations
+- [ ] Refactor frontend into a shared file upload component to reduce code duplication
+- [ ] Add a favicon and app branding/logo
+- [ ] Optimize the `Dockerfile` for a production multi-stage build
+- [ ] Set up a GitHub Actions CI/CD workflow for automated builds and tests
+- [ ] Add drag-and-drop reordering for files in PDF Merge and Image to PDF tools
+- [ ] Support additional image formats (WEBP, TIFF, BMP) in Image to PDF
+
 ## License
 
 This project is for educational and demonstration purposes.
 
 ## Contributing
 
-Feel free to submit issues and enhancement requests!
+Feel free to submit issues and pull requests! When contributing:
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/your-feature`)
+3. Commit your changes (`git commit -m 'Add your feature'`)
+4. Push to the branch (`git push origin feature/your-feature`)
+5. Open a Pull Request
