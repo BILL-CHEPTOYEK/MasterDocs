@@ -12,9 +12,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addMapping("/api/**")
                 .allowedOrigins(
                     "http://localhost:5173",
-                    "http://localhost:5174",
-                    "http://localhost:5175",
-                    "http://localhost:5176",
+                    "https://docs.cheptoyek.com",
                     "https://masterdocs.onrender.com",
                     "https://masterdocs-1.onrender.com",
                     "https://masterdocs-2.onrender.com"
